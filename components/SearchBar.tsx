@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { SearchManufacturer } from "./";
+import { SearchMake } from "./";
 import Image from "next/image";
 
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
@@ -16,28 +15,24 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
   </button>
 );
 
-const SearchBar = ({ setManufacturer, setModel }) => {
-  const [searchManufacturer, setSearchManufacturer] = useState("");
+const SearchBar = ({ setMake, setModel }) => {
+  const [searchMake, setSearchMake] = useState("Porsche");
   const [searchModel, setSearchModel] = useState("");
-  const router = useRouter();
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchManufacturer === "" && searchModel === "") {
+    if (searchMake === "" && searchModel === "") {
       return alert("fill in search form");
     }
 
+    setMake(searchMake.toLowerCase());
     setModel(searchModel.toLowerCase());
-    setManufacturer(searchManufacturer.toLowerCase());
   };
 
   return (
     <form className="searchbar" onSubmit={handleSearch}>
       <div className="searchbar__item">
-        <SearchManufacturer
-          selected={searchManufacturer}
-          setSelected={setSearchManufacturer}
-        />
+        <SearchMake selected={searchMake} setSelected={setSearchMake} />
         <SearchButton otherClasses="sm:hidden" />
       </div>
 
@@ -54,7 +49,7 @@ const SearchBar = ({ setManufacturer, setModel }) => {
           name="model"
           value={searchModel}
           onChange={(e) => setSearchModel(e.target.value)}
-          placeholder="Tiguan"
+          placeholder="911"
           className="searchbar__input"
         />
         <SearchButton otherClasses="sm:hidden" />

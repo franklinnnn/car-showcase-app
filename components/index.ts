@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import SearchBar from "./SearchBar";
 import CustomFilter from "./CustomFilter";
-import SearchManufacturer from "./SearchManufacturer";
+import SearchMake from "./SearchMake";
 import CarCard from "./CarCard";
 import CarDetails from "./CarDetails";
 import ShowMore from "./ShowMore";
@@ -16,7 +16,7 @@ export {
   Footer,
   SearchBar,
   CustomFilter,
-  SearchManufacturer,
+  SearchMake,
   CarCard,
   CarDetails,
   ShowMore,

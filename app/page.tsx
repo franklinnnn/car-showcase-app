@@ -10,7 +10,7 @@ export default function Home() {
   const [allCars, setAllCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [manufacturer, setManufacturer] = useState("");
+  const [make, setMake] = useState("Porsche");
   const [model, setModel] = useState("");
 
   const [fuel, setFuel] = useState("");
@@ -21,7 +21,7 @@ export default function Home() {
   const getCars = async () => {
     try {
       const result = await fetchCars({
-        manufacturer: manufacturer || "",
+        make: make || "",
         model: model || "",
         year: year || 2022,
         fuel: fuel || "",
@@ -38,9 +38,8 @@ export default function Home() {
   useEffect(() => {
     console.log(fuel, year);
     getCars();
-  }, [manufacturer, model, fuel, year, limit]);
+  }, [make, model, fuel, year, limit]);
 
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -50,7 +49,7 @@ export default function Home() {
           <p>Explore the cars you might like</p>
         </div>
         <div className="home__filters">
-          <SearchBar setManufacturer={setManufacturer} setModel={setModel} />
+          <SearchBar setMake={setMake} setModel={setModel} />
           <div className="home__filter-container">
             <CustomFilter title="fuel" options={fuels} setFilter={setFuel} />
             <CustomFilter

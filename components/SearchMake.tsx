@@ -1,17 +1,14 @@
 "use client";
-import { SearchManufacturerProps } from "@/types";
+import { SearchMakeProps } from "@/types";
 import React, { useState, Fragment } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { manufacturers } from "@/constants";
 
-const SearchManufacturer = ({
-  selected,
-  setSelected,
-}: SearchManufacturerProps) => {
+const SearchMake = ({ selected, setSelected }: SearchMakeProps) => {
   const [query, setQuery] = useState("");
 
-  const filteredManufacturers =
+  const filteredMakes =
     query === ""
       ? manufacturers
       : manufacturers.filter((item) =>
@@ -37,7 +34,7 @@ const SearchManufacturer = ({
 
           <Combobox.Input
             className="search-manufacturer__input"
-            placeholder="Volkswagen"
+            placeholder="Porsche"
             displayValue={(manufacturer: string) => manufacturer}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -49,7 +46,7 @@ const SearchManufacturer = ({
             afterLeave={() => setQuery("")}
           >
             <Combobox.Options>
-              {filteredManufacturers.map((item) => (
+              {filteredMakes.map((item) => (
                 <Combobox.Option
                   key={item}
                   className={({ active }) =>
@@ -88,4 +85,4 @@ const SearchManufacturer = ({
   );
 };
 
-export default SearchManufacturer;
+export default SearchMake;
