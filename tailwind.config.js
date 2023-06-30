@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ["Inter", "sans-serif"],
+        title: ["Author", "Montserrat", "sans-serif"],
       },
       colors: {
         "black-100": "#2B2C35",
@@ -23,6 +23,7 @@ module.exports = {
           100: "rgba(59,60,152,0.02)",
         },
         grey: "#747A88",
+        "primary-orange": "#E9724C",
       },
       backgroundImage: {
         pattern: "url('/pattern.png')",

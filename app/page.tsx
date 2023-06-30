@@ -1,94 +1,61 @@
-"use client";
-
 import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
+import { HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
-import Image from "next/image";
-import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [allCars, setAllCars] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default async function Home({ searchParams }: HomeProps) {
+  const allCars = await fetchCars({
+    make: searchParams.make || "",
+    model: searchParams.model || "",
+    year: searchParams.year || 2022,
+    fuel: searchParams.fuel || "",
+    limit: searchParams.limit || 10,
+  });
 
-  const [make, setMake] = useState("Porsche");
-  const [model, setModel] = useState("");
-
-  const [fuel, setFuel] = useState("");
-  const [year, setYear] = useState(2022);
-
-  const [limit, setLimit] = useState(10);
-
-  const getCars = async () => {
-    try {
-      const result = await fetchCars({
-        make: make || "",
-        model: model || "",
-        year: year || 2022,
-        fuel: fuel || "",
-        limit: limit || 10,
-      });
-      setAllCars(result);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    console.log(fuel, year);
-    getCars();
-  }, [make, model, fuel, year, limit]);
+  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden bg-zinc-900">
       <Hero />
-      <div className="mt-12 padding-x padding-y max-width" id="discover">
-        <div className="home__text-container">
-          <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
-          <p>Explore the cars you might like</p>
+      <div
+        className="mt-12 sm:px-16 px-6 py-4 max-w-[1440px] mx-auto"
+        id="discover"
+      >
+        <div className="flex items-center justify-start gap-x-4">
+          <h1 className="text-4xl font-extrabold italic text-slate-100">
+            Car Catalogue
+          </h1>
+          <span className="text-slate-300">
+            Explore our wide inventory of cars
+          </span>
         </div>
-        <div className="home__filters">
-          <SearchBar setMake={setMake} setModel={setModel} />
-          <div className="home__filter-container">
-            <CustomFilter title="fuel" options={fuels} setFilter={setFuel} />
-            <CustomFilter
-              title="year"
-              options={yearsOfProduction}
-              setFilter={setYear}
-            />
+        <div className="mt-12 w-full flex-between items-center flex-wrap gap-4">
+          <SearchBar />
+
+          <div className="flex justify-start flex-wrap items-center gap-2">
+            <CustomFilter title="fuel" options={fuels} />
+            <CustomFilter title="year" options={yearsOfProduction} />
           </div>
         </div>
 
-        {allCars.length > 0 ? (
+        {!isDataEmpty ? (
           <section>
-            <div className="home__cars-wrapper">
+            <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
               {allCars?.map((car) => (
                 <CarCard car={car} />
               ))}
             </div>
 
-            {loading && (
-              <div className="mt-16 w-full flex-center">
-                <Image
-                  src="/loader.svg"
-                  alt="loader"
-                  width={50}
-                  height={50}
-                  className="object-contain"
-                />
-              </div>
-            )}
-
             <ShowMore
-              pageNumber={limit / 10}
-              isNext={limit > allCars.length}
-              setLimit={setLimit}
+              pageNumber={(searchParams.limit || 10) / 10}
+              isNext={(searchParams.limit || 10) > allCars.length}
             />
           </section>
         ) : (
-          <div className="home__error-container">
-            <h2 className="text-black text-xl font-bold">No Results</h2>
+          <div className="mt-16 flex justify-center items-center flex-col gap-2">
+            <h2 className="text-slate-100 text-4xl font-bold ">
+              <span className="italic">Looks like we don't have it.</span> 😕
+            </h2>
             <p>{allCars?.message}</p>
           </div>
         )}

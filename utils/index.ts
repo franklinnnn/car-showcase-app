@@ -3,11 +3,11 @@ import { CarProps, FilterProps } from "@/types";
 export const fetchCars = async (filters: FilterProps) => {
   const { make, model, year, limit, fuel } = filters;
   const headers = {
-    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY || "",
+    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY2 || "",
     "X-RapidAPI-Host": "cars-by-api-ninjas.p.rapidapi.com",
   };
   const response = await fetch(
-    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${make}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
+    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${make}&model=${model}&year=${year}&limit=${limit}&fuel_type=${fuel}`,
     { headers: headers }
   );
 
@@ -32,7 +32,6 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
 };
 
 export const generateCarImageUrl = (car: CarProps, angle?: string) => {
-  //customer key: userickamezocompany
   const url = new URL("https://cdn.imagin.studio/getimage/");
   const { make, year, model } = car;
   url.searchParams.append(

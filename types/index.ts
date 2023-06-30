@@ -32,10 +32,14 @@ export interface CarProps {
 
 export interface FilterProps {
   make: string;
+  model: string;
   year: number;
   fuel: string;
   limit: number;
-  model: string;
+}
+
+export interface HomeProps {
+  searchParams: FilterProps;
 }
 
 export interface OptionProps {

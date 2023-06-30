@@ -1,11 +1,11 @@
 "use client";
-import { SearchMakeProps } from "@/types";
 import React, { useState, Fragment } from "react";
+import { SearchMakeProps } from "@/types";
 import { Combobox, Transition } from "@headlessui/react";
-import Image from "next/image";
 import { manufacturers } from "@/constants";
+import { BiSolidFactory } from "react-icons/bi";
 
-const SearchMake = ({ selected, setSelected }: SearchMakeProps) => {
+const SearchMake = ({ make, setMake }: SearchMakeProps) => {
   const [query, setQuery] = useState("");
 
   const filteredMakes =
@@ -19,22 +19,16 @@ const SearchMake = ({ selected, setSelected }: SearchMakeProps) => {
         );
 
   return (
-    <div className="search-manufacturer">
-      <Combobox value={selected} onChange={setSelected}>
+    <div className="flex-1 max-sm:w-full flex justify-start items-center">
+      <Combobox value={make} onChange={setMake}>
         <div className="relative w-full">
           <Combobox.Button className="absolute top-[14px]">
-            <Image
-              src="./car-logo.svg"
-              width={20}
-              height={20}
-              className="ml-4"
-              alt="Car Logo"
-            />
+            <BiSolidFactory className="w-[20px] h-[20px] ml-4 text-slate-300/60" />
           </Combobox.Button>
 
           <Combobox.Input
-            className="search-manufacturer__input"
-            placeholder="Porsche"
+            className="w-full h-[48px] pl-12 p-4 rounded-md max-sm:rounded-full outline-none cursor-pointer text-sm border-[1px] border-transparent bg-black text-slate-100  focus:border-primary-orange"
+            placeholder="Make"
             displayValue={(manufacturer: string) => manufacturer}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -45,13 +39,13 @@ const SearchMake = ({ selected, setSelected }: SearchMakeProps) => {
             leaveTo="opacity-0"
             afterLeave={() => setQuery("")}
           >
-            <Combobox.Options>
+            <Combobox.Options className="bg-black">
               {filteredMakes.map((item) => (
                 <Combobox.Option
                   key={item}
                   className={({ active }) =>
-                    `relative search-manufacturer__option ${
-                      active ? "bg-primary-blue text-white" : "text-gray-900"
+                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                      active ? "bg-primary-orange text-white" : "text-slate-200"
                     }`
                   }
                   value={item}
