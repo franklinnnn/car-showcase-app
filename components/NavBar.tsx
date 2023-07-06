@@ -17,7 +17,7 @@ const NavBar = () => {
           <BsSpeedometer className="text-2xl text-primary-orange" />
         </Link>
 
-        <SignInButton />
+        {/* <SignInButton /> */}
       </nav>
     </header>
   );
