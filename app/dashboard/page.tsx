@@ -2,9 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { db } from "@/utils/firebase";
 import { useSession } from "next-auth/react";
 
 const page = () => {
