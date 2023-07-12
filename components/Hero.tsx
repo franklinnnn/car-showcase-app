@@ -12,11 +12,10 @@ const Hero = () => {
     <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
       <div className="flex-1 pt-36 padding-x">
         <h1 className="2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold italic text-slate-100">
-          Find and rent a car quickly and easily!
+          Find a car quickly and easily!
         </h1>
         <p className="text-[24px] text-slate-200 mt-4">
-          Streamline your car rental experience with our effortless booking
-          process.
+          Streamline your search experience with our effortless booking process.
         </p>
 
         <CustomButton

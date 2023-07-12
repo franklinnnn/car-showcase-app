@@ -56,16 +56,30 @@ export const updateSearchParams = (type: string, value: string) => {
   return newPathname;
 };
 
-export const fetchVideos = async (car: CarProps) => {
-  const { make, year, model } = car;
+// export const fetchVideos = async (car: CarProps) => {
+//   const { make, year, model } = car;
+//   const headers = {
+//     "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY || "",
+//     "X-RapidAPI-Host": "youtube-search-and-download.p.rapidapi.com",
+//   };
+//   const response = await fetch(
+//     `https://youtube-search-and-download.p.rapidapi.com/search?query=${year} ${make} ${model}`,
+//     { headers: headers }
+//   );
+//   const data = await response.json();
+//   return data;
+// };
+
+export const fetchVideos = async (car: string) => {
   const headers = {
-    "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY || "",
+    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY2 || "",
     "X-RapidAPI-Host": "youtube-search-and-download.p.rapidapi.com",
   };
   const response = await fetch(
-    `https://youtube-search-and-download.p.rapidapi.com/search?query=${year} ${make} ${model}`,
+    `https://youtube-search-and-download.p.rapidapi.com/search?query=${car}&type=v`,
     { headers: headers }
   );
-  const data = await response.json();
-  return data;
+  const result = await response.json();
+
+  return result.contents;
 };

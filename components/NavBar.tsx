@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import CustomButton from "./CustomButton";
 import { BsSpeedometer } from "react-icons/bs";
 import SignInButton from "./SignInButton";
 import { useSession } from "next-auth/react";
